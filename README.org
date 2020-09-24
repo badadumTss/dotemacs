@@ -1,0 +1,8 @@
+#+TITLE: dotemacs
+#+AUTHOR: badadumTss
+
+Personal emacs configuration. Features:
+- Helm
+- Evil
+- Heavy focus on server-client architecture
+- random theme at frame init
