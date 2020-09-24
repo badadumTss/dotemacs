@@ -38,10 +38,9 @@
   (package-install 'use-package))
 
 
-(global-set-key (kbd "C-c e") 
-		'(find-file 
-		  (expand-file-name 
-		   (concat user-emacs-directory "init.el"))))
+(global-set-key (kbd "C-c e") '(lambda () (interactive) (find-file 
+							 (expand-file-name 
+							  (concat user-emacs-directory "init.el")))))
 
 (global-display-line-numbers-mode t)
 (setq display-line-numbers-type 'relative)
