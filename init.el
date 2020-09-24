@@ -203,34 +203,22 @@ See `custom-enabled-themes' for a list of enabled themes."
   (global-set-key (kbd "C-c C-s") 'helm-multi-swoop)
   (global-set-key (kbd "C-x M-s") 'helm-multi-swoop-all)
 
-  ;; From helm-swoop to helm-multi-swoop-all
   (define-key helm-swoop-map (kbd "C-s") 'helm-multi-swoop-all-from-helm-swoop)
-  ;; When doing evil-search, hand the word over to helm-swoop
   (define-key evil-motion-state-map (kbd "C-c C-s") 'helm-swoop-from-evil-search)
 
-  ;; Instead of helm-multi-swoop-all, you can also use helm-multi-swoop-current-mode
   (define-key helm-swoop-map (kbd "C-m") 'helm-multi-swoop-current-mode-from-helm-swoop)
 
-  ;; Move up and down like isearch
   (define-key helm-swoop-map (kbd "C-k") 'helm-previous-line)
   (define-key helm-swoop-map (kbd "C-j") 'helm-next-line)
   (define-key helm-multi-swoop-map (kbd "C-k") 'helm-previous-line)
   (define-key helm-multi-swoop-map (kbd "C-j") 'helm-next-line)
 
-  ;; Save buffer when helm-multi-swoop-edit complete
   (setq helm-multi-swoop-edit-save t)
-  ;; If this value is t, split window inside the current window
-  (setq helm-swoop-split-with-multiple-windows nil)
-  ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
+  (setq helm-swoop-split-with-multiple-windows t)
   (setq helm-swoop-split-direction 'split-window-vertically)
-  ;; If nil, you can slightly boost invoke speed in exchange for text color
-  (setq helm-swoop-speed-or-color nil)
-  ;; ;; Go to the opposite side of line from the end or beginning of line
+  (setq helm-swoop-speed-or-color t
   (setq helm-swoop-move-to-line-cycle t)
-  ;; Optional face for line numbers
-  ;; Face name is `helm-swoop-line-number-face`
   (setq helm-swoop-use-line-number-face t)
-  ;; If you prefer fuzzy matching
   (setq helm-swoop-use-fuzzy-match t))
 
 (use-package which-key
