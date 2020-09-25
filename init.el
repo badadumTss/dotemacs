@@ -184,6 +184,11 @@ See `custom-enabled-themes' for a list of enabled themes."
 (use-package magit
   :ensure t)
 
+(use-package evil-magit
+  :ensure t
+  :config
+  (setq evil-magit-use-y-for-yank t))
+
 (use-package helm
   :ensure t
   :config
