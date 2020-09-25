@@ -70,20 +70,37 @@
 
 ;; Associazione (nome-paccheto-tema nome-tema) così da usarlo in più punti
 (setq lz/custom-theme-list
-      '((modus-operandi-theme modus-operandi)
-	(material-theme material)
-	(cyberpunk-theme cyberpunk)
-	(afternoon-theme afternoon)
-	(zenburn-theme zenburn)
-	(moe-theme (moe-light moe-dark))))
+      '(modus-operandi-theme 
+	material-theme 
+	cyberpunk-theme 
+	afternoon-theme 
+	zenburn-theme 
+	flucui-themes 
+	hemisu-theme 
+	moe-theme))
+
+;; Temi tra i quali scegliere quello randomico
+;; qui le liste dei temi corrispondenti vanno spezzate!!
+(setq lz/choosen-themes
+      '(modus-operandi
+	material
+	cyberpunk
+	afternoon
+	zenburn
+	flucui-light
+	flucui-dark
+	hemisu-dark
+	hemisu-light
+	moe-light
+	moe-dark))
 
 (dolist (theme lz/custom-theme-list)
-  (unless (package-installed-p (car theme))
+  (unless (package-installed-p theme)
     (package-install theme)))
 
 ;; Disabilita tutti i temi presenti nella lista themes-list
 (defun disable-all-themes-in-list (themes-list)
-  "Disable all variable and face settings defined by THEMES-LIST.
+  "Disable all variable and face settings defined by each theme in THEMES-LIST.
 See `custom-enabled-themes' for a list of enabled themes."
   (dolist (theme themes-list)
     (when (custom-theme-enabled-p theme)
@@ -118,24 +135,12 @@ See `custom-enabled-themes' for a list of enabled themes."
         (setq custom-enabled-themes
               (delq theme custom-enabled-themes))))))
 
-;; Temi tra i quali scegliere quello randomico
-(setq choosen-themes
-      (mapcan
-       '(lambda (theme-obj)
-	  (cdr theme-obj))
-       lz/custom-theme-list))
-
 ;; Disabilita tutti i temi abilitati e carica uno randomico
 ;; selezionato da una lista specifica all'avvio di ogni frame
 (add-hook 'before-make-frame-hook
           (lambda ()
             (disable-all-themes-in-list custom-enabled-themes)
-            (load-theme
-             (nth 
-              (random 
-               (length choosen-themes))
-              choosen-themes)
-             t )))
+	    (load-theme (nth (random (length lz/choosen-themes)) lz/choosen-themes) t)))
 
 ;; PACCHETTI AGGIUNTIVI
 ;; EVIL
@@ -157,19 +162,14 @@ See `custom-enabled-themes' for a list of enabled themes."
 
   (evil-define-operator wrap-with-brackets (beg end)
     (wrap-with-char beg end "(" ")"))
-  
   (evil-define-operator wrap-with-quotes (beg end)
     (wrap-with-char beg end "'"))
-  
   (evil-define-operator wrap-with-double-quotes (beg end)
     (wrap-with-char beg end "\""))
-  
   (evil-define-operator wrap-with-square-brackets (beg end)
     (wrap-with-char beg end "[" "]"))
-  
   (evil-define-operator wrap-with-curly-brackets (beg end)
     (wrap-with-char beg end "{" "}"))
-  
   (evil-define-operator wrap-with-comment-region (beg end)
     (wrap-with-char beg end "/*" "*/"))
   
@@ -183,11 +183,6 @@ See `custom-enabled-themes' for a list of enabled themes."
 
 (use-package magit
   :ensure t)
-
-(use-package evil-magit
-  :ensure t
-  :config
-  (setq evil-magit-use-y-for-yank t))
 
 (use-package helm
   :ensure t
@@ -226,6 +221,11 @@ See `custom-enabled-themes' for a list of enabled themes."
   (setq helm-swoop-move-to-line-cycle t)
   (setq helm-swoop-use-line-number-face t)
   (setq helm-swoop-use-fuzzy-match t))
+
+(use-package evil-magit
+  :ensure t
+  :config
+  (setq evil-magit-use-y-for-yank t))
 
 (use-package which-key
   :ensure t
