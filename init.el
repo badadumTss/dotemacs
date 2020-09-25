@@ -33,14 +33,15 @@
                t))
 (package-initialize)
 
-(package-refresh-contents)
 (unless (package-installed-p 'use-package)
+  (package-refresh-contents)
   (package-install 'use-package))
 
 
-(global-set-key (kbd "C-c e") '(lambda () (interactive) (find-file 
-							 (expand-file-name 
-							  (concat user-emacs-directory "init.el")))))
+(global-set-key (kbd "C-c e") '(lambda () 
+				 (interactive) (find-file 
+						(expand-file-name 
+						 (concat user-emacs-directory "init.el")))))
 
 (global-display-line-numbers-mode t)
 (setq display-line-numbers-type 'relative)
@@ -216,7 +217,7 @@ See `custom-enabled-themes' for a list of enabled themes."
   (setq helm-multi-swoop-edit-save t)
   (setq helm-swoop-split-with-multiple-windows t)
   (setq helm-swoop-split-direction 'split-window-vertically)
-  (setq helm-swoop-speed-or-color t
+  (setq helm-swoop-speed-or-color t)
   (setq helm-swoop-move-to-line-cycle t)
   (setq helm-swoop-use-line-number-face t)
   (setq helm-swoop-use-fuzzy-match t))
