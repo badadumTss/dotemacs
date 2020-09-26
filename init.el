@@ -47,9 +47,6 @@
 (setq display-line-numbers-type 'relative)
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
-(add-to-list 'default-frame-alist
-             '(vertical-scroll-bars . nil)
-             '(horizontal-scroll-bars . nil))
 
 (global-auto-revert-mode 1)
 (setq auto-revert-verbose nil)
@@ -63,10 +60,34 @@
                            '("Luke Smiths" "https://lukesmith.xyz/rss.xml" nil 3600)))
 
 ;; TEMI - VISUAL
+(setq initial-frame-alist
+      '((width . 500) ; chars
+	(height . 200) ; lines
+	(left . 50)
+	(top . 50)
+	(vertical-scroll-bars . nil)
+        (horizontal-scroll-bars . nil)))
+
+(setq default-frame-alist
+      '((width . 500)
+	(height . 200)
+	(left . 50)
+	(top . 50)
+	(vertical-scroll-bars . nil)
+        (horizontal-scroll-bars . nil)))
+
 (setq c-default-style
       (list '(java-mode . "java")
             '(awk-mode . "awk")
             '(other . "k&r")))
+
+;; SPACELINE
+(use-package spaceline
+  :ensure t
+  :config
+  (require 'spaceline-config)
+  (spaceline-helm-mode)
+  (spaceline-spacemacs-theme))
 
 ;; Associazione (nome-paccheto-tema nome-tema) così da usarlo in più punti
 (setq lz/custom-theme-list
@@ -85,12 +106,8 @@
       '(modus-operandi
 	material
 	cyberpunk
-	afternoon
-	zenburn
 	flucui-light
 	flucui-dark
-	hemisu-dark
-	hemisu-light
 	moe-light
 	moe-dark))
 
