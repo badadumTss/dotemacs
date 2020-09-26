@@ -194,7 +194,9 @@ See `custom-enabled-themes' for a list of enabled themes."
   (global-set-key (kbd "C-x C-f") #'helm-find-files)
   (define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
   (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
-  (define-key helm-map (kbd "C-z") #'helm-select-action))
+  (define-key helm-map (kbd "C-z") #'helm-select-action)
+  (define-key helm-map (kbd "C-j") #'helm-next-line)
+  (define-key helm-map (kbd "C-k") #'helm-previous-line))
 
 (use-package helm-swoop
   :ensure t
