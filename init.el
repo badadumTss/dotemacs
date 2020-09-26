@@ -96,6 +96,7 @@
 	cyberpunk-theme 
 	afternoon-theme 
 	zenburn-theme 
+	doom-themes
 	flucui-themes 
 	hemisu-theme 
 	moe-theme))
@@ -104,8 +105,12 @@
 ;; qui le liste dei temi corrispondenti vanno spezzate!!
 (setq lz/choosen-themes
       '(modus-operandi
-	material
 	cyberpunk
+	doom-Iosvkem
+	doom-monokai
+	doom-one
+	doom-material
+	doom-nord-light
 	flucui-light
 	flucui-dark
 	moe-light
@@ -115,42 +120,9 @@
   (unless (package-installed-p theme)
     (package-install theme)))
 
-;; Disabilita tutti i temi presenti nella lista themes-list
 (defun disable-all-themes-in-list (themes-list)
-  "Disable all variable and face settings defined by each theme in THEMES-LIST.
-See `custom-enabled-themes' for a list of enabled themes."
   (dolist (theme themes-list)
-    (when (custom-theme-enabled-p theme)
-      (let ((settings (get theme 'theme-settings)))
-        (dolist (s settings)
-          (let* ((prop   (car s))
-                 (symbol (cadr s))
-                 (val (assq-delete-all theme (get symbol prop))))
-            (put symbol prop val)
-            (cond
-             ((eq prop 'theme-value)
-              (custom-theme-recalc-variable symbol))
-             ((eq prop 'theme-face)
-              ;; If the face spec specified by this theme is in the
-              ;; saved-face property, reset that property.
-              (when (equal (nth 3 s) (get symbol 'saved-face))
-                (put symbol 'saved-face (and val (cadr (car val)))))))))
-        ;; Recompute faces on all frames.
-        (dolist (frame (frame-list))
-          ;; We must reset the fg and bg color frame parameters, or
-          ;; `face-set-after-frame-default' will use the existing
-          ;; parameters, which could be from the disabled theme.
-          (set-frame-parameter frame 'background-color
-                               (custom--frame-color-default
-                                frame :background "background" "Background"
-                                "unspecified-bg" "white"))
-          (set-frame-parameter frame 'foreground-color
-                               (custom--frame-color-default
-                                frame :foreground "foreground" "Foreground"
-                                "unspecified-fg" "black"))
-          (face-set-after-frame-default frame))
-        (setq custom-enabled-themes
-              (delq theme custom-enabled-themes))))))
+    (disable-theme theme)))
 
 ;; Disabilita tutti i temi abilitati e carica uno randomico
 ;; selezionato da una lista specifica all'avvio di ogni frame
