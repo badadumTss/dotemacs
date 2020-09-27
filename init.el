@@ -89,7 +89,11 @@
   (spaceline-helm-mode)
   (spaceline-spacemacs-theme))
 
-;; Associazione (nome-paccheto-tema nome-tema) così da usarlo in più punti
+(defvar lz/custom-theme-list
+  nil
+  "list of custom theme packages to install if not already
+  installed at startup")
+
 (setq lz/custom-theme-list
       '(modus-operandi-theme 
 	material-theme 
@@ -101,8 +105,10 @@
 	hemisu-theme 
 	moe-theme))
 
-;; Temi tra i quali scegliere quello randomico
-;; qui le liste dei temi corrispondenti vanno spezzate!!
+(defvar lz/choosen-themes
+  nil
+  "List of *installed* themes to choose a random from")
+
 (setq lz/choosen-themes
       '(modus-operandi
 	cyberpunk
