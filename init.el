@@ -60,21 +60,31 @@
                            '("Luke Smiths" "https://lukesmith.xyz/rss.xml" nil 3600)))
 
 ;; TEMI - VISUAL
-(setq initial-frame-alist
-      '((width . 500) ; chars
-	(height . 200) ; lines
-	(left . 50)
-	(top . 50)
-	(vertical-scroll-bars . nil)
-        (horizontal-scroll-bars . nil)))
+(if (not (equal system-type 'windows-nt))
+    (progn
+      (setq initial-frame-alist
+	    '((width . 500) ; chars
+	      (height . 200) ; lines
+	      (left . 50)
+	      (top . 50)
+	      (vertical-scroll-bars . nil)
+	      (horizontal-scroll-bars . nil)))
 
-(setq default-frame-alist
-      '((width . 500)
-	(height . 200)
-	(left . 50)
-	(top . 50)
-	(vertical-scroll-bars . nil)
-        (horizontal-scroll-bars . nil)))
+      (setq default-frame-alist
+	    '((width . 500)
+	      (height . 200)
+	      (left . 50)
+	      (top . 50)
+	      (vertical-scroll-bars . nil)
+	      (horizontal-scroll-bars . nil))))
+  (progn
+    (setq initial-frame-alist
+	  '((vertical-scroll-bars . nil)
+	    (horizontal-scroll-bars . nil)))
+
+    (setq default-frame-alist
+	  '((vertical-scroll-bars . nil)
+	    (horizontal-scroll-bars . nil)))))
 
 (set-face-attribute 'default nil :height 150)
 
