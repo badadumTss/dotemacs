@@ -76,6 +76,8 @@
 	(vertical-scroll-bars . nil)
         (horizontal-scroll-bars . nil)))
 
+(set-face-attribute 'default nil :height 150)
+
 (setq c-default-style
       (list '(java-mode . "java")
             '(awk-mode . "awk")
@@ -110,17 +112,11 @@
   "List of *installed* themes to choose a random from")
 
 (setq lz/choosen-themes
-      '(modus-operandi
-	cyberpunk
+      '(cyberpunk
 	doom-Iosvkem
 	doom-monokai
-	doom-one
-	doom-material
-	doom-nord-light
-	flucui-light
-	flucui-dark
-	moe-light
-	moe-dark))
+	doom-dark+
+	doom-material))
 
 (dolist (theme lz/custom-theme-list)
   (unless (package-installed-p theme)
@@ -259,3 +255,9 @@
   :ensure t
   :config
   (define-key evil-visual-state-map (kbd "e") 'er/expand-region))
+
+(use-package web-mode
+  :ensure t)
+
+(use-package php-mode
+  :ensure t)
