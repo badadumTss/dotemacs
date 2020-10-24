@@ -37,11 +37,14 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(defun lz/open-configs ()
+  "Funzione per aprire il file di configurazione (questo)"
+  (interactive)
+  (find-file 
+   (expand-file-name 
+    (concat user-emacs-directory "init.el"))))
 
-(global-set-key (kbd "C-c e") '(lambda () 
-				 (interactive) (find-file 
-						(expand-file-name 
-						 (concat user-emacs-directory "init.el")))))
+(global-set-key (kbd "C-c SPC") 'lz/open-configs)
 
 (global-display-line-numbers-mode t)
 (setq display-line-numbers-type 'relative)
@@ -121,10 +124,15 @@
   nil
   "List of *installed* themes to choose a random from")
 
+;; nil per il tema di default
 (setq lz/choosen-themes
       '(cyberpunk
+	modus-operandi
+	flucui
+	leuven
 	doom-Iosvkem
-	doom-monokai
+	doom-one-light
+	doom-city-lights
 	doom-dark+
 	doom-material))
 
@@ -147,6 +155,8 @@
 ;; EVIL
 (use-package evil
   :ensure t
+  :init
+  (setq evil-want-C-u-scroll t)
   :config
   (evil-mode 1)
   (define-key evil-normal-state-map (kbd "<tab>") 'indent-for-tab-command)
@@ -159,7 +169,9 @@
     (insert 
      (if close-char 
 	 close-char 
-       open-char)))
+       open-char))
+    (goto-char beg)
+    (evil-insert 1))
 
   (evil-define-operator wrap-with-brackets (beg end)
     (wrap-with-char beg end "(" ")"))
@@ -240,8 +252,7 @@
 (use-package org
   :ensure t
   :config
-  (setq org-startup-indented t
-	org-hide-leading-stars t))
+  (setq	org-hide-leading-stars t))
 
 (use-package org-tree-slide
   :ensure t
@@ -270,4 +281,7 @@
   :ensure t)
 
 (use-package php-mode
+  :ensure t)
+
+(use-package markdown-mode
   :ensure t)
