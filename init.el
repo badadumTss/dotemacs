@@ -149,7 +149,12 @@
 (add-hook 'before-make-frame-hook
           (lambda ()
             (disable-all-themes-in-list custom-enabled-themes)
-	    (load-theme (nth (random (length lz/choosen-themes)) lz/choosen-themes) t)))
+	    (load-theme 
+	     (nth 
+	      (random 
+	       (length lz/choosen-themes)) 
+	      lz/choosen-themes) 
+	     t)))
 
 ;; PACCHETTI AGGIUNTIVI
 ;; EVIL
