@@ -44,7 +44,7 @@
    (expand-file-name 
     (concat user-emacs-directory "init.el"))))
 
-(global-set-key (kbd "C-c SPC") 'lz/open-configs)
+;; (global-set-key (kbd "C-c C-e") 'lz/open-configs)
 
 (global-display-line-numbers-mode t)
 (setq display-line-numbers-type 'relative)
