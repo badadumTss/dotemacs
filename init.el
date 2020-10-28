@@ -46,8 +46,11 @@
 
 ;; (global-set-key (kbd "C-c C-e") 'lz/open-configs)
 
-(global-display-line-numbers-mode t)
-(setq display-line-numbers-type 'relative)
+(if (not (version< emacs-version "26.0"))
+    (progn
+      (global-display-line-numbers-mode t)
+      (setq display-line-numbers-type 'relative))
+  )
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
 
