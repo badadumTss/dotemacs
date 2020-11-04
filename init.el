@@ -50,6 +50,7 @@
     (progn
       (global-display-line-numbers-mode t)
       (setq display-line-numbers-type 'relative))
+  (global-linum-mode t)
   )
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
@@ -113,8 +114,7 @@
   installed at startup")
 
 (setq lz/custom-theme-list
-      '(modus-operandi-theme 
-	material-theme 
+      '(material-theme 
 	cyberpunk-theme 
 	afternoon-theme 
 	zenburn-theme 
@@ -130,7 +130,6 @@
 ;; nil per il tema di default
 (setq lz/choosen-themes
       '(cyberpunk
-	modus-operandi
 	flucui
 	leuven
 	doom-Iosvkem
@@ -147,17 +146,18 @@
   (dolist (theme themes-list)
     (disable-theme theme)))
 
+(defun lz/random-theme ()
+  "Disable all current themes and loads a nwe radom theme from lz/choosen-themes"
+  (disable-all-themes-in-list custom-enabled-themes)
+  (load-theme 
+   (nth 
+    (random 
+     (length lz/choosen-themes)) 
+    lz/choosen-themes) 
+   t))
 ;; Disabilita tutti i temi abilitati e carica uno randomico
 ;; selezionato da una lista specifica all'avvio di ogni frame
-(add-hook 'before-make-frame-hook
-          (lambda ()
-            (disable-all-themes-in-list custom-enabled-themes)
-	    (load-theme 
-	     (nth 
-	      (random 
-	       (length lz/choosen-themes)) 
-	      lz/choosen-themes) 
-	     t)))
+(add-hook 'before-make-frame-hook 'lz/random-theme)
 
 ;; PACCHETTI AGGIUNTIVI
 ;; EVIL
@@ -201,7 +201,7 @@
   (evil-define-key 'visual global-map (kbd "{") 'wrap-with-curly-brackets)
   (evil-define-key 'visual global-map (kbd "/*") 'wrap-with-comment-region))
 
-
+(setq load-path (delq "/usr/share/emacs/25.2/site-lisp/elpa/magit-2.11.0" load-path))
 (use-package magit
   :ensure t)
 
