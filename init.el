@@ -130,7 +130,6 @@
 ;; nil per il tema di default
 (setq lz/choosen-themes
       '(cyberpunk
-	flucui
 	leuven
 	doom-Iosvkem
 	doom-one-light
