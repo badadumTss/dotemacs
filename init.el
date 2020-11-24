@@ -130,6 +130,8 @@
 ;; nil per il tema di default
 (setq lz/choosen-themes
       '(cyberpunk
+	flucui-light
+	flucui-dark
 	leuven
 	doom-Iosvkem
 	doom-one-light
@@ -200,7 +202,8 @@
   (evil-define-key 'visual global-map (kbd "{") 'wrap-with-curly-brackets)
   (evil-define-key 'visual global-map (kbd "/*") 'wrap-with-comment-region))
 
-(setq load-path (delq "/usr/share/emacs/25.2/site-lisp/elpa/magit-2.11.0" load-path))
+(setq load-path 
+      (delq "/usr/share/emacs/25.2/site-lisp/elpa/magit-2.11.0" load-path))
 (use-package magit
   :ensure t)
 
@@ -292,3 +295,4 @@
 
 (use-package markdown-mode
   :ensure t)
+
