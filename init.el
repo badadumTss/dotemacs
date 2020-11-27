@@ -202,6 +202,8 @@
   (evil-define-key 'visual global-map (kbd "{") 'wrap-with-curly-brackets)
   (evil-define-key 'visual global-map (kbd "/*") 'wrap-with-comment-region))
 
+;; Serve nel pc di laboratorio per impedire ad emacs di caricare il
+;; magit preinstallato che brikka tutto
 (setq load-path 
       (delq "/usr/share/emacs/25.2/site-lisp/elpa/magit-2.11.0" load-path))
 (use-package magit
