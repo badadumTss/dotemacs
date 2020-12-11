@@ -254,6 +254,13 @@
   :config
   (setq evil-magit-use-y-for-yank t))
 
+(use-package magit-gitflow
+  :ensure t
+  :config
+  (require 'magit-gitflow)
+  (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
+
+
 (use-package which-key
   :ensure t
   :config
@@ -298,3 +305,21 @@
 (use-package markdown-mode
   :ensure t)
 
+(use-package yaml-mode
+  :ensure t
+  :config
+  (add-hook 'yaml-mode-hook
+          (lambda ()
+            (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1)
+  (defun lz/java-def-var (var-name)
+    "Defines the variable `var-name` as a String"
+    (concat "public String " var-name ";"))
+  (defun lz/java-init-var (var-name)
+    "Defines the variable `var-name` as a String"
+    (concat "this." var-name " = " var-name))
+  )
