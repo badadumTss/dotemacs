@@ -4,7 +4,7 @@
 (setq inhibit-startup-screen t)
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
-
+(setq load-path (cons user-emacs-directory load-path)) ;; Adjust
 ;; BASE
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -260,7 +260,6 @@
   (require 'magit-gitflow)
   (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
 
-
 (use-package which-key
   :ensure t
   :config
@@ -321,5 +320,18 @@
     (concat "public String " var-name ";"))
   (defun lz/java-init-var (var-name)
     "Defines the variable `var-name` as a String"
-    (concat "this." var-name " = " var-name))
-  )
+    (concat "this." var-name " = " var-name)))
+
+(use-package debbugs
+  :ensure t)
+
+(setq auto-mode-alist
+      (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
+(setq auto-mode-alist
+      (cons '("\\.dat$" . ampl-mode) auto-mode-alist))
+(setq auto-mode-alist
+      (cons '("\\.ampl$" . ampl-mode) auto-mode-alist))
+(setq interpreter-mode-alist
+      (cons '("ampl" . ampl-mode)
+            interpreter-mode-alist))
+(autoload 'ampl-mode "ampl-mode" "Ampl editing mode." t)
