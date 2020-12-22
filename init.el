@@ -202,13 +202,31 @@
   (evil-define-key 'visual global-map (kbd "{") 'wrap-with-curly-brackets)
   (evil-define-key 'visual global-map (kbd "/*") 'wrap-with-comment-region))
 
-;; Serve nel pc di laboratorio per impedire ad emacs di caricare il
-;; magit preinstallato che brikka tutto
-(setq load-path 
-      (delq "/usr/share/emacs/25.2/site-lisp/elpa/magit-2.11.0" load-path))
-(use-package magit
-  :ensure t)
+(use-package expand-region
+  :ensure t
+  :config
+  (define-key evil-visual-state-map (kbd "e") 'er/expand-region))
 
+
+;; MAGIT
+(use-package magit
+  :ensure t
+  :init
+  (setq load-path 
+	(delq "/usr/share/emacs/25.2/site-lisp/elpa/magit-2.11.0" load-path)))
+
+(use-package evil-magit
+  :ensure t
+  :config
+  (setq evil-magit-use-y-for-yank t))
+
+(use-package magit-gitflow
+  :ensure t
+  :config
+  (require 'magit-gitflow)
+  (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
+
+;; HELM
 (use-package helm
   :ensure t
   :config
@@ -249,17 +267,7 @@
   (setq helm-swoop-use-line-number-face t)
   (setq helm-swoop-use-fuzzy-match t))
 
-(use-package evil-magit
-  :ensure t
-  :config
-  (setq evil-magit-use-y-for-yank t))
-
-(use-package magit-gitflow
-  :ensure t
-  :config
-  (require 'magit-gitflow)
-  (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
-
+;; WHICH-KEY
 (use-package which-key
   :ensure t
   :config
@@ -267,6 +275,7 @@
   (setq which-key-side-window-location 'bottom)
   (which-key-mode))
 
+;; ORG
 (use-package org
   :ensure t
   :config
@@ -278,6 +287,7 @@
   (global-set-key (kbd "<f8>") 'org-tree-slide-mode)
   (global-set-key (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle))
 
+;; RUST
 (use-package rust-mode
   :ensure t
   :config
@@ -290,11 +300,8 @@
   :config
   (add-hook 'rust-mode-hook 'cargo-minor-mode))
 
-(use-package expand-region
-  :ensure t
-  :config
-  (define-key evil-visual-state-map (kbd "e") 'er/expand-region))
 
+;; WEB-DEV
 (use-package web-mode
   :ensure t)
 
@@ -311,6 +318,7 @@
           (lambda ()
             (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
 
+;; UTILITY
 (use-package yasnippet
   :ensure t
   :config
