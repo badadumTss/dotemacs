@@ -148,11 +148,12 @@
     (disable-theme theme)))
 
 (defun lz/random-theme ()
-  "Disable all current themes and loads a nwe radom theme from lz/choosen-themes"
+  "Disable all current themes and loads a new radom theme from
+lz/choosen-themes"
   (disable-all-themes-in-list custom-enabled-themes)
   (load-theme 
    (nth 
-    (random 
+    (random n
      (length lz/choosen-themes)) 
     lz/choosen-themes) 
    t))
@@ -161,52 +162,11 @@
 (add-hook 'before-make-frame-hook 'lz/random-theme)
 
 ;; PACCHETTI AGGIUNTIVI
-;; EVIL
-(use-package evil
-  :ensure t
-  :init
-  (setq evil-want-C-u-scroll t)
-  :config
-  (evil-mode 1)
-  (define-key evil-normal-state-map (kbd "<tab>") 'indent-for-tab-command)
-  (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
-  
-  (defun wrap-with-char (beg end open-char &optional close-char)
-    (goto-char beg)
-    (insert open-char)
-    (goto-char (1+ end))
-    (insert 
-     (if close-char 
-	 close-char 
-       open-char))
-    (goto-char beg)
-    (evil-insert 1))
-
-  (evil-define-operator wrap-with-brackets (beg end)
-    (wrap-with-char beg end "(" ")"))
-  (evil-define-operator wrap-with-quotes (beg end)
-    (wrap-with-char beg end "'"))
-  (evil-define-operator wrap-with-double-quotes (beg end)
-    (wrap-with-char beg end "\""))
-  (evil-define-operator wrap-with-square-brackets (beg end)
-    (wrap-with-char beg end "[" "]"))
-  (evil-define-operator wrap-with-curly-brackets (beg end)
-    (wrap-with-char beg end "{" "}"))
-  (evil-define-operator wrap-with-comment-region (beg end)
-    (wrap-with-char beg end "/*" "*/"))
-  
-  (evil-define-key 'visual global-map (kbd "(") 'wrap-with-brackets)
-  (evil-define-key 'visual global-map (kbd "'") 'wrap-with-quotes)
-  (evil-define-key 'visual global-map (kbd "\"") 'wrap-with-double-quotes)
-  (evil-define-key 'visual global-map (kbd "[") 'wrap-with-square-brackets)
-  (evil-define-key 'visual global-map (kbd "{") 'wrap-with-curly-brackets)
-  (evil-define-key 'visual global-map (kbd "/*") 'wrap-with-comment-region))
 
 (use-package expand-region
   :ensure t
   :config
-  (define-key evil-visual-state-map (kbd "e") 'er/expand-region))
-
+  (global-set-key (kbd "C-c SPC") 'er/expand-region))
 
 ;; MAGIT
 (use-package magit
@@ -214,11 +174,6 @@
   :init
   (setq load-path 
 	(delq "/usr/share/emacs/25.2/site-lisp/elpa/magit-2.11.0" load-path)))
-
-(use-package evil-magit
-  :ensure t
-  :config
-  (setq evil-magit-use-y-for-yank t))
 
 (use-package magit-gitflow
   :ensure t
@@ -250,8 +205,6 @@
   (global-set-key (kbd "C-x M-s") 'helm-multi-swoop-all)
 
   (define-key helm-swoop-map (kbd "C-s") 'helm-multi-swoop-all-from-helm-swoop)
-  (define-key evil-motion-state-map (kbd "C-c C-s") 'helm-swoop-from-evil-search)
-
   (define-key helm-swoop-map (kbd "C-m") 'helm-multi-swoop-current-mode-from-helm-swoop)
 
   (define-key helm-swoop-map (kbd "C-k") 'helm-previous-line)
@@ -332,6 +285,10 @@
 
 (use-package debbugs
   :ensure t)
+
+(use-package nix-mode
+  :ensure t
+  :mode "\\.nix\\'")
 
 (setq auto-mode-alist
       (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
