@@ -100,66 +100,8 @@
             '(awk-mode . "awk")
             '(other . "k&r")))
 
-;; SPACELINE
-(use-package spaceline
-  :ensure t
-  :config
-  (require 'spaceline-config)
-  (spaceline-helm-mode)
-  (spaceline-spacemacs-theme))
 
-(defvar lz/custom-theme-list
-  nil
-  "list of custom theme packages to install if not already
-  installed at startup")
-
-(setq lz/custom-theme-list
-      '(material-theme 
-	cyberpunk-theme 
-	afternoon-theme 
-	zenburn-theme 
-	doom-themes
-	flucui-themes 
-	hemisu-theme 
-	moe-theme))
-
-(defvar lz/choosen-themes
-  nil
-  "List of *installed* themes to choose a random from")
-
-;; nil per il tema di default
-(setq lz/choosen-themes
-      '(cyberpunk
-	flucui-light
-	flucui-dark
-	leuven
-	doom-Iosvkem
-	doom-one-light
-	doom-city-lights
-	doom-dark+
-	doom-material))
-
-(dolist (theme lz/custom-theme-list)
-  (unless (package-installed-p theme)
-    (package-install theme)))
-
-(defun disable-all-themes-in-list (themes-list)
-  (dolist (theme themes-list)
-    (disable-theme theme)))
-
-(defun lz/random-theme ()
-  "Disable all current themes and loads a new radom theme from
-lz/choosen-themes"
-  (disable-all-themes-in-list custom-enabled-themes)
-  (load-theme 
-   (nth 
-    (random n
-     (length lz/choosen-themes)) 
-    lz/choosen-themes) 
-   t))
-;; Disabilita tutti i temi abilitati e carica uno randomico
-;; selezionato da una lista specifica all'avvio di ogni frame
-(add-hook 'before-make-frame-hook 'lz/random-theme)
+(load-theme 'modus-operandi t)
 
 ;; PACCHETTI AGGIUNTIVI
 
@@ -192,33 +134,7 @@ lz/choosen-themes"
   (global-set-key (kbd "C-x C-f") #'helm-find-files)
   (define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
   (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
-  (define-key helm-map (kbd "C-z") #'helm-select-action)
-  (define-key helm-map (kbd "C-j") #'helm-next-line)
-  (define-key helm-map (kbd "C-k") #'helm-previous-line))
-
-(use-package helm-swoop
-  :ensure t
-  :config
-  (global-set-key (kbd "C-s") 'helm-swoop)
-  (global-set-key (kbd "M-S") 'helm-swoop-back-to-last-point)
-  (global-set-key (kbd "C-c C-s") 'helm-multi-swoop)
-  (global-set-key (kbd "C-x M-s") 'helm-multi-swoop-all)
-
-  (define-key helm-swoop-map (kbd "C-s") 'helm-multi-swoop-all-from-helm-swoop)
-  (define-key helm-swoop-map (kbd "C-m") 'helm-multi-swoop-current-mode-from-helm-swoop)
-
-  (define-key helm-swoop-map (kbd "C-k") 'helm-previous-line)
-  (define-key helm-swoop-map (kbd "C-j") 'helm-next-line)
-  (define-key helm-multi-swoop-map (kbd "C-k") 'helm-previous-line)
-  (define-key helm-multi-swoop-map (kbd "C-j") 'helm-next-line)
-
-  (setq helm-multi-swoop-edit-save t)
-  (setq helm-swoop-split-with-multiple-windows t)
-  (setq helm-swoop-split-direction 'split-window-vertically)
-  (setq helm-swoop-speed-or-color t)
-  (setq helm-swoop-move-to-line-cycle t)
-  (setq helm-swoop-use-line-number-face t)
-  (setq helm-swoop-use-fuzzy-match t))
+  (define-key helm-map (kbd "C-z") #'helm-select-action))
 
 ;; WHICH-KEY
 (use-package which-key
@@ -300,3 +216,4 @@ lz/choosen-themes"
       (cons '("ampl" . ampl-mode)
             interpreter-mode-alist))
 (autoload 'ampl-mode "ampl-mode" "Ampl editing mode." t)
+(put 'scroll-left 'disabled nil)
