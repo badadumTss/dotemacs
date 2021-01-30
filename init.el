@@ -104,11 +104,59 @@
 (load-theme 'modus-operandi t)
 
 ;; PACCHETTI AGGIUNTIVI
+;; (use-package evil
+;;   :ensure t
+;;   :init
+;;   (setq evil-want-C-u-scroll t)
+;;   :config
+;;   (evil-mode 1)
+;;   (define-key evil-normal-state-map (kbd "<tab>") 'indent-for-tab-command)
+;;   ;; (setq evil-insert-state-cursor '(box "purple"))
+;;   ;; (setq evil-normal-state-cursor '(box "black"))
+;;   (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
+;;   (evil-define-key 'normal org-mode-map (kbd "TAB") #'org-cycle)
+  
+;;   (defun wrap-with-char (beg end open-char &optional close-char)
+;;     (goto-char beg)
+;;     (insert open-char)
+;;     (goto-char (1+ end))
+;;     (insert 
+;;      (if close-char 
+;; 	 close-char 
+;;        open-char))
+;;     (goto-char beg)
+;;     (evil-insert 1))
+  
+;;   (evil-define-operator wrap-with-brackets (beg end)
+;;     (wrap-with-char beg end "(" ")"))
+;;   (evil-define-operator wrap-with-quotes (beg end)
+;;     (wrap-with-char beg end "'"))
+;;   (evil-define-operator wrap-with-double-quotes (beg end)
+;;     (wrap-with-char beg end "\""))
+;;   (evil-define-operator wrap-with-square-brackets (beg end)
+;;     (wrap-with-char beg end "[" "]"))
+;;   (evil-define-operator wrap-with-curly-brackets (beg end)
+;;     (wrap-with-char beg end "{" "}"))
+;;   (evil-define-operator wrap-with-comment-region (beg end)
+;;     (wrap-with-char beg end "/*" "*/"))
+  
+;;   (evil-define-key 'visual global-map (kbd "(") 'wrap-with-brackets)
+;;   (evil-define-key 'visual global-map (kbd "'") 'wrap-with-quotes)
+;;   (evil-define-key 'visual global-map (kbd "\"") 'wrap-with-double-quotes)
+;;   (evil-define-key 'visual global-map (kbd "[") 'wrap-with-square-brackets)
+;;   (evil-define-key 'visual global-map (kbd "{") 'wrap-with-curly-brackets)
+;;   (evil-define-key 'visual global-map (kbd "/*") 'wrap-with-comment-region))
+
+;; (use-package evil-magit
+;;   :ensure t
+;;   :config
+;;   (setq evil-magit-use-y-for-yank t))
 
 (use-package expand-region
   :ensure t
   :config
-  (global-set-key (kbd "C-c SPC") 'er/expand-region))
+  ;; (define-key evil-visual-state-map (kbd "e") 'er/expand-region))
+  (global-set-key (kbd "C-c C-SPC") 'er/expand-region)) 
 
 ;; MAGIT
 (use-package magit
@@ -134,7 +182,18 @@
   (global-set-key (kbd "C-x C-f") #'helm-find-files)
   (define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
   (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
-  (define-key helm-map (kbd "C-z") #'helm-select-action))
+  (define-key helm-map (kbd "C-z") #'helm-select-action)
+  
+  (define-key helm-map (kbd "C-k") 'helm-previous-line)
+  (define-key helm-map (kbd "C-j") 'helm-next-line)
+
+  (setq helm-multi-edit-save t)
+  (setq helm-split-with-multiple-windows t)
+  (setq helm-split-direction 'split-window-vertically)
+  (setq helm-speed-or-color t)
+  (setq helm-move-to-line-cycle t)
+  (setq helm-use-line-number-face t)
+  (setq helm-use-fuzzy-match t))
 
 ;; WHICH-KEY
 (use-package which-key
@@ -178,7 +237,11 @@
   :ensure t)
 
 (use-package markdown-mode
-  :ensure t)
+  :ensure t
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
 
 (use-package yaml-mode
   :ensure t
