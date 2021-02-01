@@ -4,7 +4,7 @@
 (setq inhibit-startup-screen t)
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
-;; (setq load-path (cons user-emacs-directory load-path)) ;; Adjust
+
 ;; BASE
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -38,18 +38,22 @@
   (package-install 'use-package))
 
 (defun lz/open-configs ()
-  "Funzione per aprire il file di configurazione (questo)"
+  "Funzione per aprire il file di configurazione"
   (interactive)
   (find-file 
    (expand-file-name 
     (concat user-emacs-directory "init.el"))))
 
+;; prima della 26.0 di emacs non veniva fornita la
+;; global-display-line-numbers, ci si affidava alla linum, che era più
+;; lenta e non permetteva di avere il numero relativo di linea
 (if (not (version< emacs-version "26.0"))
     (progn
       (global-display-line-numbers-mode t)
       (setq display-line-numbers-type 'relative))
   (global-linum-mode t)
   )
+
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
 
@@ -222,5 +226,6 @@
   :ensure t
   :mode "\\.nix\\'")
 
+;; HASKELL
 (use-package haskell-mode
   :ensure t)
