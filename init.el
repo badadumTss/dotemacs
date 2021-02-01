@@ -4,7 +4,7 @@
 (setq inhibit-startup-screen t)
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
-(setq load-path (cons user-emacs-directory load-path)) ;; Adjust
+;; (setq load-path (cons user-emacs-directory load-path)) ;; Adjust
 ;; BASE
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -43,8 +43,6 @@
   (find-file 
    (expand-file-name 
     (concat user-emacs-directory "init.el"))))
-
-;; (global-set-key (kbd "C-c C-e") 'lz/open-configs)
 
 (if (not (version< emacs-version "26.0"))
     (progn
@@ -100,62 +98,14 @@
             '(awk-mode . "awk")
             '(other . "k&r")))
 
-
-(load-theme 'modus-operandi t)
-
-;; PACCHETTI AGGIUNTIVI
-;; (use-package evil
-;;   :ensure t
-;;   :init
-;;   (setq evil-want-C-u-scroll t)
-;;   :config
-;;   (evil-mode 1)
-;;   (define-key evil-normal-state-map (kbd "<tab>") 'indent-for-tab-command)
-;;   ;; (setq evil-insert-state-cursor '(box "purple"))
-;;   ;; (setq evil-normal-state-cursor '(box "black"))
-;;   (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
-;;   (evil-define-key 'normal org-mode-map (kbd "TAB") #'org-cycle)
-  
-;;   (defun wrap-with-char (beg end open-char &optional close-char)
-;;     (goto-char beg)
-;;     (insert open-char)
-;;     (goto-char (1+ end))
-;;     (insert 
-;;      (if close-char 
-;; 	 close-char 
-;;        open-char))
-;;     (goto-char beg)
-;;     (evil-insert 1))
-  
-;;   (evil-define-operator wrap-with-brackets (beg end)
-;;     (wrap-with-char beg end "(" ")"))
-;;   (evil-define-operator wrap-with-quotes (beg end)
-;;     (wrap-with-char beg end "'"))
-;;   (evil-define-operator wrap-with-double-quotes (beg end)
-;;     (wrap-with-char beg end "\""))
-;;   (evil-define-operator wrap-with-square-brackets (beg end)
-;;     (wrap-with-char beg end "[" "]"))
-;;   (evil-define-operator wrap-with-curly-brackets (beg end)
-;;     (wrap-with-char beg end "{" "}"))
-;;   (evil-define-operator wrap-with-comment-region (beg end)
-;;     (wrap-with-char beg end "/*" "*/"))
-  
-;;   (evil-define-key 'visual global-map (kbd "(") 'wrap-with-brackets)
-;;   (evil-define-key 'visual global-map (kbd "'") 'wrap-with-quotes)
-;;   (evil-define-key 'visual global-map (kbd "\"") 'wrap-with-double-quotes)
-;;   (evil-define-key 'visual global-map (kbd "[") 'wrap-with-square-brackets)
-;;   (evil-define-key 'visual global-map (kbd "{") 'wrap-with-curly-brackets)
-;;   (evil-define-key 'visual global-map (kbd "/*") 'wrap-with-comment-region))
-
-;; (use-package evil-magit
-;;   :ensure t
-;;   :config
-;;   (setq evil-magit-use-y-for-yank t))
+(use-package modus-themes
+  :ensure t
+  :config
+  (load-theme 'modus-vivendi t))
 
 (use-package expand-region
   :ensure t
   :config
-  ;; (define-key evil-visual-state-map (kbd "e") 'er/expand-region))
   (global-set-key (kbd "C-c C-SPC") 'er/expand-region)) 
 
 ;; MAGIT
@@ -184,8 +134,8 @@
   (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-z") #'helm-select-action)
   
-  (define-key helm-map (kbd "C-k") 'helm-previous-line)
-  (define-key helm-map (kbd "C-j") 'helm-next-line)
+  ;; (define-key helm-map (kbd "C-k") 'helm-previous-line)
+  ;; (define-key helm-map (kbd "C-j") 'helm-next-line)
 
   (setq helm-multi-edit-save t)
   (setq helm-split-with-multiple-windows t)
@@ -207,7 +157,10 @@
 (use-package org
   :ensure t
   :config
-  (setq	org-hide-leading-stars t))
+  (setq	org-hide-leading-stars t)
+  (setq org-startup-truncated nil)
+  (require 'ox-md nil t)
+  (add-hook 'org-mode-hook #'toggle-word-wrap))
 
 (use-package org-tree-slide
   :ensure t
@@ -269,14 +222,5 @@
   :ensure t
   :mode "\\.nix\\'")
 
-(setq auto-mode-alist
-      (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.dat$" . ampl-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.ampl$" . ampl-mode) auto-mode-alist))
-(setq interpreter-mode-alist
-      (cons '("ampl" . ampl-mode)
-            interpreter-mode-alist))
-(autoload 'ampl-mode "ampl-mode" "Ampl editing mode." t)
-(put 'scroll-left 'disabled nil)
+(use-package haskell-mode
+  :ensure t)
