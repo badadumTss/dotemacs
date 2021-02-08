@@ -107,11 +107,6 @@
   :config
   (load-theme 'modus-vivendi t))
 
-(use-package expand-region
-  :ensure t
-  :config
-  (global-set-key (kbd "C-c C-SPC") 'er/expand-region)) 
-
 ;; MAGIT
 (use-package magit
   :ensure t
@@ -163,6 +158,14 @@
   :config
   (setq	org-hide-leading-stars t)
   (setq org-startup-truncated nil)
+  (require 'ox-latex)
+  (setq org-latex-listings 'minted)
+  (setq org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  (add-to-list 'org-latex-minted-langs '(ipython "python"))
+  (add-to-list 'org-latex-minted-langs '(java "java"))
   (require 'ox-md nil t)
   (add-hook 'org-mode-hook #'toggle-word-wrap))
 
@@ -171,6 +174,12 @@
   :config
   (global-set-key (kbd "<f8>") 'org-tree-slide-mode)
   (global-set-key (kbd "S-<f8>") 'org-tree-slide-skip-done-toggle))
+
+(use-package expand-region
+  :ensure t
+  :config
+  (require 'org)
+  (global-set-key (kbd "C-c C-SPC") 'er/expand-region)) 
 
 ;; RUST
 (use-package rust-mode
@@ -217,7 +226,12 @@
     (concat "public String " var-name ";"))
   (defun lz/java-init-var (var-name)
     "Defines the variable `var-name` as a String"
-    (concat "this." var-name " = " var-name)))
+    (concat "this." var-name " = " var-name))
+  (defun lz/org-get-time-stamp (&rest args)
+    "Return the string that `org-insert-time-stamp' would insert."
+    (with-temp-buffer
+      (apply #'org-insert-time-stamp args)
+      (buffer-string))))
 
 (use-package debbugs
   :ensure t)
