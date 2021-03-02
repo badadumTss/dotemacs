@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: title and author for writeups
+# key: ttw
+# --
+#+TITLE: ${1:`(buffer-name)` writeup}
+#+AUTHOR: ${2:1187304}

@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: java class
+# key: newclass
+# --
+class ${1:NewClass} $2 {
+
+      ${3:$(lz/java-def-var yas-text)}      
+
+      public ${1} (${3}) {
+      	     ${3:$(lz/java-init-var yas-text)}  
+      }
+}

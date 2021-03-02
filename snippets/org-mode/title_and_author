@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: org title and author
+# key: tt
+# --
+#+TITLE: ${1:`(buffer-name)`}
+#+AUTHOR: ${2:Luca Zaninotto}
+#+DATE: `(lz/org-get-time-stamp (visited-file-modtime))`
+* ${4:Main point}

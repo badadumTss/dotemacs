@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: html tag closed
+# key: <<
+# --
+<${1:div}>$2</$1>

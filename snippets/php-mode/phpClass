@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: Php base class file
+# key: phpClass
+# --
+<?php
+class $1 {
+      $2    
+}
+?>

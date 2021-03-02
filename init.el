@@ -105,7 +105,7 @@
 (use-package modus-themes
   :ensure t
   :config
-  (load-theme 'modus-vivendi t))
+  (load-theme 'modus-operandi t))
 
 ;; MAGIT
 (use-package magit
@@ -161,9 +161,9 @@
   (require 'ox-latex)
   (setq org-latex-listings 'minted)
   (setq org-latex-pdf-process
-      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+	'("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
   (add-to-list 'org-latex-minted-langs '(ipython "python"))
   (add-to-list 'org-latex-minted-langs '(java "java"))
   (require 'ox-md nil t)
@@ -213,8 +213,8 @@
   :ensure t
   :config
   (add-hook 'yaml-mode-hook
-          (lambda ()
-            (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
+            (lambda ()
+              (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
 
 ;; UTILITY
 (use-package yasnippet
@@ -242,4 +242,19 @@
 
 ;; HASKELL
 (use-package haskell-mode
+  :ensure t)
+
+;; GROOVY
+(use-package groovy-mode
+  :ensure t)
+
+(use-package gradle-mode
+  :ensure t)
+
+;; Solidity
+(use-package solidity-mode
+  :ensure t)
+
+;; Typescript
+(use-package typescript-mode
   :ensure t)
