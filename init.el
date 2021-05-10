@@ -97,6 +97,11 @@
 
 (set-face-attribute 'default nil :height 150)
 
+;; PAREN MODE, shows parenthesis if visible otherwhise shows the
+;; entire expression
+(show-paren-mode 1)
+(setq show-paren-style 'mixed)
+
 (setq c-default-style
       (list '(java-mode . "java")
             '(awk-mode . "awk")
@@ -251,10 +256,18 @@
 (use-package gradle-mode
   :ensure t)
 
-;; Solidity
+;; SOLIDITY
 (use-package solidity-mode
   :ensure t)
 
-;; Typescript
+;; TYPESCRIPT
 (use-package typescript-mode
+  :ensure t)
+
+;; JSON
+(use-package json-mode
+  :ensure t)
+
+;; DOCKER
+(use-package dockerfile-mode
   :ensure t)
