@@ -271,3 +271,6 @@
 ;; DOCKER
 (use-package dockerfile-mode
   :ensure t)
+
+(use-package elfeed
+  :ensure t)
